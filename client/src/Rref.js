@@ -1,15 +1,20 @@
 import React from "react";
 import "./App.css";
+import Axios from 'axios';
 import { useHistory, Link } from "react-router-dom";
 
 function Rref() {
+  const history = useHistory();
+  console.log(useHistory);
+
   const[rowNum, setRowNum] = React.useState(0);
   const[columnNum, setColumnNum] = React.useState(0);
 
   const[matrixArray, setMatrixArray] = React.useState([[]]);
+  const[resultArray, setResultArray] = React.useState([]);
 
-  const history = useHistory();
-  console.log(useHistory);
+  const[textOutput, setTextOutput] = React.useState([]);
+
 
   const home = () => { history.push('/') };
 
@@ -25,14 +30,20 @@ function Rref() {
   };
 
   const findRREF = () => {
-    console.info(matrixArray);
-    TODO:
-
-  }
+    Axios.post('/rref', {
+      matrixArray: matrixArray
+    }).then((res) => {
+      if (res.json.err) console.log(res.json.err);
+      if (res.json.array) {
+        setResultArray(res.json.array);
+      } else {
+        setTextOutput("Sorry could not find RREF");
+      }
+    });
+  };
 
 
   return (
-    
     <div className="App">
       <header className="App-header">
         RREF Calculator
@@ -55,7 +66,7 @@ function Rref() {
         {matrixArray.map((item, index) => {
           return(
             <div className="row">
-            {item instanceof Array && item.map((list, i) => {
+            {item instanceof Array && item.map((num, i) => {
               return (
                 <input type="number" onChange={(e) => {matrixArray[index][i] = e.target.value}} />
               );
@@ -67,7 +78,24 @@ function Rref() {
       </div>
 
       <button onClick={findRREF}>Find RREF</button>
+      
+      <div className="result">
+        <table>
+        {resultArray.map((item, index) => {
+          return(
+            <tr>
+              {item instanceof Array && item.map((num, i) => {
+                return (
+                  <td>{num}</td>
+                )
+              })}
+            </tr>
+          )
+        })}
+        </table>
 
+        <h2>{textOutput}</h2>
+      </div>
     </div>
   );
 }
