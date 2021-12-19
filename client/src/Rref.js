@@ -6,10 +6,29 @@ function Rref() {
   const[rowNum, setRowNum] = React.useState(0);
   const[columnNum, setColumnNum] = React.useState(0);
 
+  const[matrixArray, setMatrixArray] = React.useState([[]]);
+
   const history = useHistory();
   console.log(useHistory);
 
   const home = () => { history.push('/') };
+
+  const submit = () => {
+    var newArray = [];
+    for (let i = 0; i < rowNum; i++) {
+      newArray.push([]);
+      for (let j = 0; j < columnNum; j++) {
+        newArray[i].push(0);
+      }
+    }
+    setMatrixArray(newArray);
+  };
+
+  const findRREF = () => {
+    console.info(matrixArray);
+    TODO:
+
+  }
 
 
   return (
@@ -26,12 +45,28 @@ function Rref() {
       <div className="enterMatrix">
         <h1>Matrix Size</h1>
         <label>Rows</label>
-        <input type="text" onChange={(e) => {setRowNum(e.target.value);}} />
+        <input type="number" min="1" onChange={(e) => {setRowNum(e.target.value);}} />
         <label>Columns</label>
-        <input type="text" onChange={(e) => {setColumnNum(e.target.value);}} />
+        <input type="number" min="1" onChange={(e) => {setColumnNum(e.target.value);}} />
+        <button onClick={submit}>Submit</button>
         <br/>
 
+        <div className="startMatrix">
+        {matrixArray.map((item, index) => {
+          return(
+            <div className="row">
+            {item instanceof Array && item.map((list, i) => {
+              return (
+                <input type="number" onChange={(e) => {matrixArray[index][i] = e.target.value}} />
+              );
+            })}
+            </div>
+          );
+        })}
+        </div>
       </div>
+
+      <button onClick={findRREF}>Find RREF</button>
 
     </div>
   );
