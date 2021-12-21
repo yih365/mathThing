@@ -30,6 +30,8 @@ function Rref() {
   };
 
   const findRREF = () => {
+    console.log("front-end client");
+    console.info(matrixArray);
     Axios.post('/rref', {
       matrixArray: matrixArray
     }).then((res) => {
