@@ -8,6 +8,8 @@ function Main() {
 
   const rref = () => { history.push('/rref') };
 
+  const notes = () => { history.push('/notes') };
+
   return (
     
     <div className="App">
@@ -17,6 +19,10 @@ function Main() {
 
       <div className="rref">
               <button onClick={rref}>RREF Calculator</button>
+      </div>
+
+      <div className="notes">
+              <button onClick={notes}>Notes</button>
       </div>
 
     </div>

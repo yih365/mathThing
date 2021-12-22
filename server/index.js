@@ -1,4 +1,12 @@
 const express = require('express');
+const sql = require('mssql');
+const config = {
+    user: 'DESKTOP-8VPMVQN\yiyih',
+    // password: 'mypassword',
+    server: 'DESKTOP-8VPMVQN\SQLEXPRESS', 
+    database: 'Math Notes' 
+};
+
 
 const app = express();
 app.use(express.json());
@@ -15,6 +23,22 @@ app.post('/rref', (req, res) => {
     console.info(matrixArray);
 
     res.json({ err: "not done yet" });
+});
+
+app.get('/grabNote', (req, res) => {
+    console.log("grabbing note");
+
+    // access database and retrieve notes
+    // TODO
+});
+
+app.post('/notes', (req, res) => {
+    console.log("here");
+
+    const newNote = req.body.newNote;
+
+    // add note to database
+    // TODO
 });
 
 app.listen(PORT, () => {

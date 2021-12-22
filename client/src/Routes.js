@@ -6,6 +6,7 @@ import { BrowserRouter as Switch, Route, Router } from 'react-router-dom';
  */
 import Main from './Main';
 import Rref from './Rref';
+import Notes from './Notes';
  
 const Routes = () => {
   console.log('started');
@@ -18,6 +19,10 @@ const Routes = () => {
 
       <Route exact path='/rref'>
           <Rref />
+      </Route>
+
+      <Route exact path='/notes'>
+        <Notes />
       </Route>
       
     </Switch>
