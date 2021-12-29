@@ -13,11 +13,12 @@ function Notes() {
 
   React.useEffect(() => {
       Axios.get('/grabNote').then((res) => {
-          if (res.json.err) {
-              console.log(res.json.err);
+          if (res.data.err) {
+              console.log(res.data.err);
               setDisplayText("Sorry notes could not be accessed");
           } else {
-            if (res.json.notes) setNotes(res.json.notes);
+            console.log(res.data.notes.recordset);
+            if (res.data.notes) setNotes(res.data.notes.recordset);
           }
       });
   });
@@ -29,7 +30,7 @@ function Notes() {
     Axios.post('/notes', {
         newNote: newNote
     }).then((res) => {
-        if (res.json.err) {
+        if (res.data.err) {
             console.log(res.json.err);
             setDisplayText("Sorry could not add note");
         } else {
@@ -59,7 +60,7 @@ function Notes() {
       {notes.map((item, index) => {
           return (
               <div className='singleNote'>
-              {item}
+              {item.note}
               </div>
           );
       })}

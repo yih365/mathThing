@@ -35,9 +35,9 @@ function Rref() {
     Axios.post('/rref', {
       matrixArray: matrixArray
     }).then((res) => {
-      if (res.json.err) console.log(res.json.err);
-      if (res.json.array) {
-        setResultArray(res.json.array);
+      if (res.data.err) console.log(res.data.err);
+      if (res.data.array) {
+        setResultArray(res.data.array);
       } else {
         setTextOutput("Sorry could not find RREF");
       }
@@ -88,7 +88,7 @@ function Rref() {
             <tr>
               {item instanceof Array && item.map((num, i) => {
                 return (
-                  <td>{num}</td>
+                  <td key={{index} + " " + {i}}>{num}</td>
                 )
               })}
             </tr>

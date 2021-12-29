@@ -1,10 +1,13 @@
 const express = require('express');
-const sql = require('mssql');
+const sql = require('mssql/msnodesqlv8');
 const config = {
-    user: 'DESKTOP-8VPMVQN\yiyih',
-    // password: 'mypassword',
-    server: 'DESKTOP-8VPMVQN\SQLEXPRESS', 
-    database: 'Math Notes' 
+    user: 'DESKTOP-8VPMVQN\\yiyih',
+    server: 'DESKTOP-8VPMVQN\\SQLEXPRESS', 
+    database: 'Math Notes',
+    driver: "msnodesqlv8",
+    options: {
+        trustedConnection: true
+    }
 };
 
 
@@ -26,15 +29,27 @@ app.post('/rref', (req, res) => {
 });
 
 app.get('/grabNote', (req, res) => {
-    console.log("grabbing note");
-
     // access database and retrieve notes
-    // TODO
+    sql.connect(config, function(err) {
+        if (err) {
+            console.log(err);
+            res.json({ err: 'Could not access database' });
+        } else {
+            let request = new sql.Request();
+            request.query('select * from note_table', function (err, recordset) {
+                if (err) {
+                    console.log(err);
+                    res.json({ err: 'Cound not access notes' });
+                } else {
+                    // console.log(recordset);
+                    res.json({ notes: recordset });
+                }
+            });
+        };
+    });
 });
 
 app.post('/notes', (req, res) => {
-    console.log("here");
-
     const newNote = req.body.newNote;
 
     // add note to database
