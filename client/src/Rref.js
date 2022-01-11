@@ -37,6 +37,7 @@ function Rref() {
     }).then((res) => {
       if (res.data.err) console.log(res.data.err);
       if (res.data.array) {
+        console.info(res.data.array);
         setResultArray(res.data.array);
       } else {
         setTextOutput("Sorry could not find RREF");

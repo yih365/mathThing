@@ -17,7 +17,6 @@ function Notes() {
               console.log(res.data.err);
               setDisplayText("Sorry notes could not be accessed");
           } else {
-            console.log(res.data.notes.recordset);
             if (res.data.notes) setNotes(res.data.notes.recordset);
           }
       });
@@ -31,10 +30,13 @@ function Notes() {
         newNote: newNote
     }).then((res) => {
         if (res.data.err) {
-            console.log(res.json.err);
+            console.log(res.data.err);
             setDisplayText("Sorry could not add note");
         } else {
-            setDisplayText("Note added");
+            if (res.data.result) {
+              console.log(res.data.result);
+              setDisplayText("Note added");
+            }
         };
     });
   };
