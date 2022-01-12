@@ -81,9 +81,12 @@ function Rref() {
       </div>
 
       <button onClick={findRREF}>Find RREF</button>
+      <br/>
+      <br/>
+      <br/>
       
       <div className="result">
-        <table>
+        <table class="resultTable">
         {resultArray.map((item, index) => {
           return(
             <tr>
