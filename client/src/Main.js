@@ -9,6 +9,8 @@ function Main() {
   const rref = () => { history.push('/rref') };
 
   const notes = () => { history.push('/notes') };
+  
+  const matrix = () => { history.push('/matrix') };
 
   return (
     
@@ -19,6 +21,10 @@ function Main() {
 
       <div className="rref">
               <button onClick={rref}>RREF Calculator</button>
+      </div>
+
+      <div className="matrix">
+              <button onClick={matrix}>Matrix Calculator</button>
       </div>
 
       <div className="notes">

@@ -1,6 +1,7 @@
 const { request } = require('express');
 const express = require('express');
 const sql = require('mssql/msnodesqlv8');
+const math = require('mathjs');
 const config = {
     user: 'DESKTOP-8VPMVQN\\yiyih',
     server: 'DESKTOP-8VPMVQN\\SQLEXPRESS', 
@@ -18,8 +19,29 @@ const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
-console.log("reached here");
-// server started
+app.post('/matrix', (req, res) => {
+    let matrixArray = req.body.matrixArray;
+    let matrixArray2 = req.body.matrixArray2;
+    let operation = req.body.operation;
+
+    matrixArray = math.matrix(matrixArray);
+    matrixArray2 = math.matrix(matrixArray2);
+
+    let resultingMatrix;
+    switch (operation) {
+        case "add":
+            resultingMatrix = math.add(matrixArray, matrixArray2);
+            break;
+        case "multiply":
+            resultingMatrix = math.multiply(matrixArray, matrixArray2);
+            break;
+    };
+    resultingMatrix = resultingMatrix.toArray();
+    
+    if (resultingMatrix == undefined || resultingMatrix == null)
+        res.json({ err: "null or undefined" });
+    res.json({ array: resultingMatrix });
+});
 
 app.post('/rref', (req, res) => {
     let matrixArray = req.body.matrixArray;
