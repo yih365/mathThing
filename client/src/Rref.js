@@ -39,8 +39,29 @@ function Rref() {
       if (res.data.array) {
         console.info(res.data.array);
         setResultArray(res.data.array);
+        setTextOutput("");
       } else {
         setTextOutput("Sorry could not find RREF");
+      }
+    });
+  };
+
+  const findDet = () => {
+    if (rowNum !== columnNum) {
+      setTextOutput("Matrix must be square size");
+      return;
+    }
+
+    Axios.post('/det', {
+      matrixArray: matrixArray
+    }).then((res) => {
+      if (res.data.err) console.log(res.data.err);
+      if (res.data.array) {
+        console.info(res.data.array);
+        setResultArray(res.data.array);
+        setTextOutput("");
+      } else {
+        setTextOutput("Sorry could not find determinant");
       }
     });
   };
@@ -49,7 +70,7 @@ function Rref() {
   return (
     <div className="App">
       <header className="App-header">
-        RREF Calculator
+        Single Matrix Calculations
       </header>
 
       <div className="home">
@@ -81,6 +102,7 @@ function Rref() {
       </div>
 
       <button onClick={findRREF}>Find RREF</button>
+      <button onClick={findDet}>Find determinant</button>
       <br/>
       <br/>
       <br/>

@@ -2,6 +2,7 @@ const { request } = require('express');
 const express = require('express');
 const sql = require('mssql/msnodesqlv8');
 const math = require('mathjs');
+const { re } = require('mathjs');
 const config = {
     user: 'DESKTOP-8VPMVQN\\yiyih',
     server: 'DESKTOP-8VPMVQN\\SQLEXPRESS', 
@@ -41,6 +42,17 @@ app.post('/matrix', (req, res) => {
     if (resultingMatrix == undefined || resultingMatrix == null)
         res.json({ err: "null or undefined" });
     res.json({ array: resultingMatrix });
+});
+
+app.post('/det', (req, res) => {
+    let matrixArray = req.body.matrixArray;
+
+    let resultingMatrix = [['determinant'],[math.det(matrixArray)]];
+    if (resultingMatrix != null) {
+        res.json({ array: resultingMatrix });
+    } else {
+        res.json({ err: "null" });
+    }
 });
 
 app.post('/rref', (req, res) => {

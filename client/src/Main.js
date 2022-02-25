@@ -20,7 +20,7 @@ function Main() {
       </header>
 
       <div className="rref">
-              <button onClick={rref}>RREF Calculator</button>
+              <button onClick={rref}>Single Matrix Calculations</button>
       </div>
 
       <div className="matrix">
